@@ -42,7 +42,7 @@ Welcome to **DoMe**, a beautiful and simple to-do task manager where you can:
 
 ## 🔗 Live Preview
 
-[Click here to view the live project 🚀](https://github.com/nitya747/DoMe-Task-App/upload/main)
+[Click here to view the live project 🚀](https://nitya747.github.io/DoMe-Task-App/)
 
 ---
 
@@ -56,7 +56,7 @@ Made with 💜 while learning frontend development!
 ## 📬 Contact
 
 📧 [nityaa7477@gmail.com](mailto:nityaa7477@gmail.com)  
-🔗 [LinkedIn](www.linkedin.com/in/nitya-arora-a8a845320)
+🔗 [LinkedIn](https://www.linkedin.com/in/nitya-arora)
 
 ---
 
