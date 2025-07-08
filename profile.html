@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Profile - DoMe</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #fceeee;
+    }
+    .profile {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 2px 2px 10px #ccc;
+    }
+    h2 {
+      color: purple;
+    }
+    .task {
+      border: 1px solid #ddd;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 8px;
+      background-color: #fff4f4;
+    }
+    .logout-btn {
+      background: crimson;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      float: right;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="profile">
+    <button class="logout-btn" onclick="logout()">Logout</button>
+    <h2>👤 Welcome, <span id="username"></span></h2>
+    <h3>📋 Your Tasks:</h3>
+    <div id="taskContainer"></div>
+  </div>
+
+  <script>
+    // Show username
+    const username = localStorage.getItem("domeUser");
+    document.getElementById("username").textContent = username || "User";
+
+    // Load tasks
+    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    const container = document.getElementById("taskContainer");
+
+    if (tasks.length === 0) {
+      container.innerHTML = "<p>No tasks added yet.</p>";
+    } else {
+      tasks.forEach(task => {
+        const div = document.createElement("div");
+        div.className = "task";
+        div.innerHTML = `
+          <strong>${task.title}</strong><br/>
+          🗓️ ${task.date} (${task.day}) at ${task.time}<br/>
+          📝 ${task.notes}
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    // Logout function
+    function logout() {
+      localStorage.removeItem("user");
+      alert("You have been logged out.");
+      window.location.href = "todo.html"; // or login.html
+    }
+  </script>
+
+</body>
+</html>

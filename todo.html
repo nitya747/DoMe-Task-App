@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do list</title>
+    <link rel="stylesheet" href="todo.css"/>
+</head>
+<body>
+    <!-- LOGIN POPUP OVERLAY -->
+<div id="loginPopup" class="popup-overlay">
+  <div class="popup-content">
+    <h2>Welcome to DoMe 👋</h2>
+    <input type="text" id="username" placeholder="Enter your name" />
+    <input type="password" id="password" placeholder="Enter your password" />
+    <br/>
+    <button onclick="handleLogin()">Login</button>
+    <div class="signup-link">
+      New user? <a onclick="handleSignUp()">Sign up</a>
+    </div>
+    <p id="output"></p>
+  </div>
+</div>
+
+    <div class="heading">
+    <h1>DoMe!</h1>
+    </div>
+    <div class="new">
+        <button class="btn"><a href="newtask.html"><h2>Add a new task</h2></a></button>
+    
+        <button class="btn"><a href="completed.html"><h2>Complete existing tasks</h2></a></button>
+    
+        <button class="btn"><a href="profile.html"><h2>Profile</h2></a></button>
+    </div>
+    <script>
+  window.onload = function () {
+    document.getElementById("loginPopup").style.display = "flex";
+  };
+
+  function handleLogin() {
+    const user = document.getElementById("username").value.trim();
+    const pass = document.getElementById("password").value;
+    const storedPass = localStorage.getItem(user);
+
+    if (!user || !pass) {
+      document.getElementById("output").textContent = "Please fill in both fields.";
+    } else if (!storedPass) {
+      document.getElementById("output").textContent = "User does not exist. Please sign up.";
+    } else if (storedPass === pass) {
+      document.getElementById("output").textContent = "🎉 Welcome back!";
+      setTimeout(() => {
+        document.getElementById("loginPopup").style.display = "none";
+      }, 1000);
+    } else {
+      document.getElementById("output").textContent = "❌ Incorrect password.";
+    }
+    localStorage.setItem("domeUser", user);
+  }
+
+  function handleSignUp() {
+    const user = document.getElementById("username").value.trim();
+    const pass = document.getElementById("password").value;
+
+    if (!user || !pass) {
+      document.getElementById("output").textContent = "Please fill in both fields.";
+    } else if (localStorage.getItem(user)) {
+      document.getElementById("output").textContent = "User already exists. Please log in.";
+    } else {
+      localStorage.setItem(user, pass);
+      document.getElementById("output").textContent = "🎉 Account created! Now you can log in.";
+    }
+  }
+</script>
+
+</body>
+</html>

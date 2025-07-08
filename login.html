@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Box</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: rgb(255, 224, 203);
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-box {
+      background: white;
+      color: rgb(78, 5, 78);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      width: 300px;
+      text-align: center;
+    }
+
+    .login-box h2 {
+      margin-bottom: 20px;
+    }
+
+    .login-box input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .login-box button {
+     background-color: rgb(78, 5, 78);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .login-box button:hover {
+      background-color: rgb(230, 154, 171);
+      color:black;
+    }
+
+    .signup-link {
+      margin-top: 15px;
+      font-size: 0.9rem;
+    }
+
+    .signup-link a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+
+    .signup-link a:hover {
+      color: blueviolet;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-box">
+    <h2>Login</h2>
+    <input type="text" placeholder="Username" id="username"><br>
+    <input type="password" placeholder="Password" id="password"><br>
+    <button onclick="handleLogin()">Login</button>
+
+    <div class="signup-link">
+      New user? <a onclick="handleSignUp()">Sign up</a>
+    </div>
+
+    <p id="output"></p>
+  </div>
+
+  <script>
+    // placeholder function (we will build logic here next)
+    window.onload = function () {
+  document.getElementById("loginBox").style.display = "flex";
+};
+    function handleLogin() {
+      let user = document.getElementById("username").value;
+      let pass = document.getElementById("password").value;
+      if(user!=NULL && pass!=NULL){
+        document.getElementById("output").textContent =
+        "You have successfully logged in!";
+      }
+    }
+    function handleSignUp(){
+        let user = document.getElementById("username").value;
+        let pass = document.getElementById("password").value;
+        if(localStorage.getItem(user)){
+            document.getElementById("output").textContent="User already exists. Please log in!";
+        } else{
+            localStorage.setItem(user, pass);
+            document.getElementById("output").textContent="Account created. Now you can successfully log in!";
+        }
+    }
+  </script>
+
+</body>
+</html>

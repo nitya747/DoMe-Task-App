@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a new task</title>
+</head>
+ <style>
+  #date:hover{
+        cursor: pointer;
+        color:#b3541e;
+      }
+
+  .subhead {
+  font-family: 'Playfair Display', serif;
+  color: rgb(78, 5, 78);
+  text-align: center;
+  font-size: 2em;
+  margin: 40px 0 20px;
+}
+  .new-task {
+  max-width: 600px;
+  margin: 50px auto;
+ background-color: rgb(255, 224, 203);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.new-task label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+   color: rgb(78, 5, 78);
+}
+
+.new-task input,
+.new-task select,
+.new-task textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+}
+.btn{
+  border-radius: 10px;
+  border: none;
+  height: 50px;
+  width: 80px;
+  cursor: pointer;
+   color: rgb(78, 5, 78);
+ background-color:whitesmoke;
+  font-weight: bold;
+  font-family:serif;
+  font-size: large;
+ margin-left: 250px;
+}
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 20px;
+  width: 80%;
+  max-width: 400px;
+  border-radius: 10px;
+  position: relative;
+  text-align: left;
+}
+
+.close-added-popup {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #888;
+}
+
+.close-added-popup:hover {
+  color: black;
+}
+
+    </style>
+<body>
+    <h3 id="formSection" class
+    ="subhead">Add a new task</h3>
+    <form id="new" class="new-task">
+      <label>Title:</label>
+      <input type="text" id="title"name="title" required />
+
+      <label for="task-date" >Completion Date:</label>
+      <input type="date"id="date" name="task-date"required />
+
+      <label for="day">Select Day:</label>
+      <select id="day"name="Day">
+        <option>Monday</option>
+        <option>Tuesday</option>
+        <option>Wednesday</option>
+        <option>Thursday</option>
+        <option>Friday</option>
+        <option>Saturday</option>
+        <option>Sunday</option>
+      </select>
+      <label for="task-time">Completion time:</label>
+  <input type="time" id="task-time" name="task-time">
+      <label for="notes">Notes:</label>
+      <textarea id="notes" rows="4" cols="50" name="comments"></textarea>
+      <br/><br/>
+
+      <button type="submit" class="btn">➕Add</button>
+    </form>
+    <!-- Popup for newly added task -->
+<div id="added-task-popup" class="modal">
+  <div class="modal-content">
+    <span class="close-added-popup">&times;</span>
+    <h2>✅ Task Added!</h2>
+    <div id="task-details"></div>
+  </div>
+</div>
+<script>
+
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+document.getElementById("new").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const title = document.getElementById("title").value;
+  const date = document.getElementById("date").value;
+  const day = document.getElementById("day").value;
+  const time = document.getElementById("task-time").value;
+  const notes = document.getElementById("notes").value;
+
+  const task = { title, date, day, time, notes };
+  tasks.push(task);
+  localStorage.setItem("tasks", JSON.stringify(tasks)); 
+
+  // Calculate deadline difference
+  const today = new Date();
+  const deadline = new Date(date);
+  const diffTime = deadline - today;
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+  let message;
+  if (diffDays > 1) {
+    message = `⏳ Deadline is approaching in ${diffDays} days`;
+  } else if (diffDays === 1) {
+    message = `⚠️ Deadline is tomorrow!`;
+  } else if (diffDays === 0) {
+    message = `🚨 Deadline is today!`;
+  } else {
+    message = `❌ Deadline passed ${Math.abs(diffDays)} day(s) ago`;
+  }
+
+  // Show task in popup
+  const taskDetails = document.getElementById("task-details");
+  taskDetails.innerHTML = `
+    <strong>${title}</strong><br/>
+    📅 ${day}, ${date} at ${time}<br/>
+    📝 ${notes}<br/><br/>
+    <span style="color: crimson; font-weight: bold">${message}</span>
+  `;
+
+  // Show the popup
+  document.getElementById("added-task-popup").style.display = "block";
+
+  // Reset form
+  this.reset();
+});
+
+// Close popup when clicking ×
+document.querySelector(".close-added-popup").addEventListener("click", function () {
+  document.getElementById("added-task-popup").style.display = "none";
+});
+
+// Close when clicking outside
+window.addEventListener("click", function (e) {
+  const popup = document.getElementById("added-task-popup");
+  if (e.target === popup) {
+    popup.style.display = "none";
+  }
+});
+</script>
+</body>
+</html>
