@@ -56,7 +56,7 @@ Made with 💜 while learning frontend development!
 ## 📬 Contact
 
 📧 [nityaa7477@gmail.com](mailto:nityaa7477@gmail.com)  
-🔗 [LinkedIn](https://www.linkedin.com/in/nitya-arora)
+🔗 [LinkedIn](https://www.linkedin.com/in/nitya-arora-a8a845320?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3B7g9qhVl1SrqOw2rhgZZDGA%3D%3D)
 
 ---
 
